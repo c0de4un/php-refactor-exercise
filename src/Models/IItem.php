@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace GildedRose\Models;
 
-interface IItemModel
+interface IItem extends IQuality, ISellable
 {
 }

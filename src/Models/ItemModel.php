@@ -6,7 +6,7 @@ namespace GildedRose\Models;
 
 use GildedRose\Item;
 
-abstract class ItemModel implements IItemModel
+class ItemModel implements IItem
 {
 
     protected Item $item;
@@ -16,7 +16,21 @@ abstract class ItemModel implements IItemModel
         int $sellIn,
         int $quality
     ) {
-        $item = new Item($name, $sellIn, $quality);
+        $this->item = new Item($name, $sellIn, $quality);
+    }
+
+    public final function getQuality(): int
+    {
+        return $this->item->quality;
+    }
+
+    public final function getSellIn(): int
+    {
+        return $this->item->sellIn;
+    }
+
+    public function updateQuality(): void
+    {
     }
 
 }
