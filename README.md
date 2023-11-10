@@ -20,4 +20,5 @@ Use shell script, or manually walk through steps
 * Install PHP packages via composer:
 ```sh
 php composer.phar install
+php composer dump-autoload
 ```
