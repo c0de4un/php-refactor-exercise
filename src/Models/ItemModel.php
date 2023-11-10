@@ -33,4 +33,14 @@ class ItemModel implements IItem
     {
     }
 
+    public final function getName(): string
+    {
+        return $this->item->name;
+    }
+
+    public final function getType(): int
+    {
+        return EItemTypes::REGULAR;
+    }
+
 }
