@@ -4,69 +4,48 @@ declare(strict_types=1);
 
 namespace GildedRose;
 
+use GildedRose\Models\IItem;
+
 final class GildedRose
 {
+
+    private static ?GildedRose $instance = null;
+
+    /** @var array IItem[] */
+    private array $items;
+
     /**
-     * @param Item[] $items
+     * @param IItem[] $items
      */
-    public function __construct(
-        private array $items
+    private function __construct(
+        array $items
     ) {
+        $this->items = $items;
+    }
+
+    public static function getInstance(): ?GildedRose
+    {
+        return self::$instance;
+    }
+
+    /**
+     * @param  IItem[] $items
+     * @return GildedRose
+     */
+    public static function Build(array $items): GildedRose
+    {
+        if (!self::$instance) {
+            self::$instance = new GildedRose($items);
+        }
+
+        return self::$instance;
     }
 
     public function updateQuality(): void
     {
-
         foreach ($this->items as $item) {
-            $isBackstagePasses = $item->name === 'Backstage passes to a TAFKAL80ETC concert';
-            $isAgedBrie = $item->name === 'Aged Brie';
-            $isSulfuras = $item->name === 'Sulfuras, Hand of Ragnaros';
-
-            if (!$isAgedBrie and !$isBackstagePasses) {
-                if ($item->quality > 0) {
-                    if (!$isSulfuras) {
-                        $item->quality--;
-                    }
-                }
-            } else {
-                if ($item->quality < 50) {
-                    $item->quality = $item->quality + 1;
-                    if ($isBackstagePasses) {
-                        if ($item->sellIn < 11) {
-                            if ($item->quality < 50) {
-                                $item->quality++;
-                            }
-                        }
-                        if ($item->sellIn < 6) {
-                            if ($item->quality < 50) {
-                                $item->quality++;
-                            }
-                        }
-                    }
-                }
-            }
-
-            if (!$isSulfuras) {
-                $item->sellIn--;
-            }
-
-            if ($item->sellIn < 0) {
-                if (!$isAgedBrie) {
-                    if (!$isBackstagePasses) {
-                        if ($item->quality > 0) {
-                            if (!$isSulfuras) {
-                                $item->quality--;
-                            }
-                        }
-                    } else {
-                        $item->quality--;
-                    }
-                } else {
-                    if ($item->quality < 50) {
-                        $item->quality++;
-                    }
-                }
-            }
+            $item->Update();
         }
     }
+
 }

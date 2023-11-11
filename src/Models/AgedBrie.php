@@ -25,7 +25,8 @@ final class AgedBrie extends ItemModel
 
     protected function updateQuality(): void
     {
-        $this->item->quality = min(50, $this->item->quality + 1);
+        $modifier = $this->isConjured() ? 2 : 1;
+        $this->item->quality = min(50, $this->item->quality + $modifier);
     }
 
 }

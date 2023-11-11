@@ -14,7 +14,8 @@ class ItemModel implements IItem
     public function __construct(
         string $name,
         int $sellIn,
-        int $quality
+        int $quality,
+        protected bool $conjured = false
     ) {
         assert(!empty($name));
         assert($sellIn >= 0);
@@ -49,6 +50,11 @@ class ItemModel implements IItem
         return EItemTypes::REGULAR;
     }
 
+    public final function isConjured(): bool
+    {
+        return $this->conjured;
+    }
+
     protected function updateSellIn(): void
     {
         $this->item->sellIn = max(0, $this->item->sellIn - 1);
@@ -57,6 +63,10 @@ class ItemModel implements IItem
     protected function updateQuality(): void
     {
         $modifier = $this->item->sellIn > 0 ? 1 : 2;
+        if ($this->conjured) {
+            $modifier *= 2;
+        }
+
         $this->item->quality = min(0, $this->item->quality - $modifier);
     }
 

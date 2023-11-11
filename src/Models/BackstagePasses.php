@@ -30,7 +30,11 @@ final class BackstagePasses extends ItemModel
             $modifier = $this->item->sellIn < 6 ? 3 : 2;
         }
 
-        $this->item->quality = min(0, $this->item->quality + $modifier);
+        if ($this->isConjured()) {
+            $modifier *= 2;
+        }
+
+        $this->item->quality = min(50, $this->item->quality + $modifier);
     }
 
 }
