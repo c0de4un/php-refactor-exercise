@@ -34,11 +34,7 @@ final class GildedRose
      */
     public static function Build(array $items): GildedRose
     {
-        if (!self::$instance) {
-            self::$instance = new GildedRose($items);
-        }
-
-        return self::$instance;
+        return self::$instance = new GildedRose($items);
     }
 
     public function updateQuality(): void
