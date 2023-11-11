@@ -11,11 +11,15 @@ class ItemModel implements IItem
 
     protected Item $item;
 
-    protected function __construct(
+    public function __construct(
         string $name,
         int $sellIn,
         int $quality
     ) {
+        assert(!empty($name));
+        assert($sellIn >= 0);
+        assert($quality >= 0);
+
         $this->item = new Item($name, $sellIn, $quality);
     }
 
@@ -40,7 +44,7 @@ class ItemModel implements IItem
         return $this->item->name;
     }
 
-    public final function getType(): int
+    public function getType(): int
     {
         return EItemTypes::REGULAR;
     }
@@ -53,7 +57,7 @@ class ItemModel implements IItem
     protected function updateQuality(): void
     {
         $modifier = $this->item->sellIn > 0 ? 1 : 2;
-        $this->item->quality -= min(0, $this->item->quality - $modifier);
+        $this->item->quality = min(0, $this->item->quality - $modifier);
     }
 
 }
