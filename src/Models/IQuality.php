@@ -8,6 +8,5 @@ interface IQuality
 {
 
     public function getQuality(): int;
-    public function updateQuality(): void;
 
 }

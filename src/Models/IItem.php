@@ -9,5 +9,6 @@ interface IItem extends IQuality, ISellable
 
     public function getName(): string;
     public function getType(): int;
+    public function Update(): void;
 
 }
