@@ -21,7 +21,7 @@ final class GildedRoseTest extends TestCase
     {
         /** @var IItem[] $items */
         $items = [
-            ItemsFactory::Create(EItemTypes::REGULAR, 0, 0, 'foo'),
+            ItemsFactory::Create(EItemTypes::REGULAR, 0, 0, false, 'foo'),
         ];
 
         $gildedRose = GildedRose::Build($items);
@@ -44,6 +44,7 @@ final class GildedRoseTest extends TestCase
                 EItemTypes::REGULAR,
                 $maxSellIn,
                 $maxSellIn,
+                false,
                 'Regular Item'
             ),
         ];
@@ -75,6 +76,7 @@ final class GildedRoseTest extends TestCase
                 EItemTypes::REGULAR,
                 $maxSellIn,
                 $maxSellIn,
+                false,
                 'Regular Item'
             ),
         ];
@@ -90,6 +92,38 @@ final class GildedRoseTest extends TestCase
         $item = &$items[0];
 
         $this->assertEquals($item->getQuality() >= 0, 'Quality cannot be less then 0');
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testConjuredRegularItemQualityUpdate(): void
+    {
+        $maxSellIn = 8;
+
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::REGULAR,
+                $maxSellIn,
+                $maxSellIn,
+                true,
+                'Regular Item'
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        $maxDays = 2;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        /** @var IItem $item */
+        $item = &$items[0];
+
+        $this->assertEquals($item->getQuality() == 4, 'Conjured item quality update invalid logic');
     }
 
 }

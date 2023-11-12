@@ -13,9 +13,10 @@ final class BackstagePasses extends ItemModel
 
     public function __construct(
         int $sellIn,
-        int $quality
+        int $quality,
+        bool $isConjured,
     ) {
-        parent::__construct(self::NAME, $sellIn, $quality);
+        parent::__construct(self::NAME, $sellIn, $quality, $isConjured);
     }
 
     protected function updateQuality(): void

@@ -28,16 +28,17 @@ final class ItemsFactory
         int $type,
         int $sellIn,
         int $quality,
+        bool $isConjured = false,
         string $name = ''
     ): IItem {
         /** @var string|null $class */
         $class = self::$itemClassesByType[$type] ?? null;
 
         if ($class) {
-            return new $class($sellIn, $quality);
+            return new $class($sellIn, $quality, $isConjured);
         }
 
-        return new ItemModel($name, $sellIn, $quality);
+        return new ItemModel($name, $sellIn, $quality, $isConjured);
     }
 
 }

@@ -14,8 +14,10 @@ final class Sulfuras extends ItemModel
 
     public function __construct(
         int $sellIn,
+        int $quality,
+        bool $isConjured = false,
     ) {
-        parent::__construct(self::NAME, $sellIn, self::QUALITY);
+        parent::__construct(self::NAME, $sellIn, self::QUALITY, $isConjured);
     }
 
     protected function updateQuality(): void

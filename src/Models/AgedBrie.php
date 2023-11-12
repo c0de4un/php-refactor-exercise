@@ -13,9 +13,10 @@ final class AgedBrie extends ItemModel
 
     public function __construct(
         int $sellIn,
-        int $quality
+        int $quality,
+        bool $isConjured = false,
     ) {
-        parent::__construct(self::NAME, $sellIn, $quality);
+        parent::__construct(self::NAME, $sellIn, $quality, $isConjured);
     }
 
     public function getType(): int
