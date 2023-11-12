@@ -61,4 +61,35 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getSellIn() >= 0, 'SellIn cannot be less then 0');
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function testRegularItemQualityMin(): void
+    {
+        $maxSellIn = 1;
+
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::REGULAR,
+                $maxSellIn,
+                $maxSellIn,
+                'Regular Item'
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        $maxDays = $maxSellIn + 1;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        /** @var IItem $item */
+        $item = &$items[0];
+
+        $this->assertEquals($item->getQuality() >= 0, 'Quality cannot be less then 0');
+    }
+
 }
