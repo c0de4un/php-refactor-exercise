@@ -67,7 +67,7 @@ class ItemModel implements IItem
             $modifier *= 2;
         }
 
-        $this->item->quality = min(0, $this->item->quality - $modifier);
+        $this->item->quality = max(0, $this->item->quality - $modifier);
     }
 
 }
