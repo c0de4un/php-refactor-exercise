@@ -1,1 +1,1 @@
-composer fix-cs 
+php composer.phar fix-cs

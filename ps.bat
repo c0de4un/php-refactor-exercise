@@ -1,1 +1,1 @@
-composer phpstan 
+php composer.phar phpstan

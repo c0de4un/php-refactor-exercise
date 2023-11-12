@@ -1,1 +1,1 @@
-composer check-cs 
+php composer.phar check-cs

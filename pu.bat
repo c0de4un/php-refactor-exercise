@@ -1,1 +1,1 @@
-composer tests
+php composer.phar tests
