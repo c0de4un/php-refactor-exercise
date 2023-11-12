@@ -10,8 +10,13 @@ use GildedRose\Factories\ItemsFactory;
 use GildedRose\Models\EItemTypes;
 use PHPUnit\Framework\TestCase;
 
-class GildedRoseTest extends TestCase
+final class GildedRoseTest extends TestCase
 {
+
+    /**
+     * @test
+     * @return void
+     */
     public function testFoo(): void
     {
         /** @var IItem[] $items */
@@ -24,4 +29,36 @@ class GildedRoseTest extends TestCase
 
         $this->assertSame('foo', $items[0]->getName());
     }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testRegularItemSellInMin(): void
+    {
+        $maxSellIn = 1;
+
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::REGULAR,
+                $maxSellIn,
+                $maxSellIn,
+                'Regular Item'
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        $maxDays = $maxSellIn + 1;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        /** @var IItem $item */
+        $item = &$items[0];
+
+        $this->assertEquals($item->getSellIn() >= 0, 'SellIn cannot be less then 0');
+    }
+
 }
