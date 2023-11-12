@@ -6,6 +6,7 @@ namespace Tests;
 
 use GildedRose\GildedRose;
 use GildedRose\Models\IItem;
+use GildedRose\Models\Sulfuras;
 use GildedRose\Factories\ItemsFactory;
 use GildedRose\Models\EItemTypes;
 use PHPUnit\Framework\TestCase;
@@ -132,7 +133,6 @@ final class GildedRoseTest extends TestCase
      */
     public function testExpiredConjuredRegularItemQualityUpdate(): void
     {
-
         /** @var IItem[] $items */
         $items = [
             ItemsFactory::Create(
@@ -154,7 +154,40 @@ final class GildedRoseTest extends TestCase
         /** @var IItem $item */
         $item = &$items[0];
 
-        $this->assertEquals($item->getQuality() == 4, "Expired conjured item quality update invalid logic, expected 2, but got: {$item->getQuality()}");
+        $this->assertEquals($item->getQuality() == 2, "Expired conjured item quality update invalid logic, expected 2, but got: {$item->getQuality()}");
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testSulfurasQualityUpdate(): void
+    {
+
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::SULFURAS,
+                1,
+                1,
+                true,
+                'Regular Item'
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        /** @var IItem $item */
+        $item = &$items[0];
+
+        $this->assertEquals($item->getQuality() == Sulfuras::QUALITY, 'Sulfuras must have constant quality value');
+
+        $maxDays = 2;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        $this->assertEquals($item->getQuality() == Sulfuras::QUALITY, 'Sulfuras quality cannot be changed during update');
     }
 
 }
