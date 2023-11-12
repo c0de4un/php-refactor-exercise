@@ -14,7 +14,7 @@ use GildedRose\Models\Sulfuras;
 final class ItemsFactory
 {
 
-    private static $itemClassesByType = [
+    private static array $itemClassesByType = [
         EItemTypes::AGED_BRIE        => AgedBrie::class,
         EItemTypes::SULFURAS         => Sulfuras::class,
         EItemTypes::BACKSTAGE_PASSES => BackstagePasses::class,
@@ -31,7 +31,7 @@ final class ItemsFactory
         string $name = ''
     ): IItem {
         /** @var string|null $class */
-        $class = self::$itemClassesByType[$type] || null;
+        $class = self::$itemClassesByType[$type] ?? null;
 
         if ($class) {
             return new $class($sellIn, $quality);
