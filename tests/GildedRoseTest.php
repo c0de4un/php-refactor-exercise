@@ -126,4 +126,35 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() == 4, 'Conjured item quality update invalid logic');
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function testExpiredConjuredRegularItemQualityUpdate(): void
+    {
+
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::REGULAR,
+                1,
+                10,
+                true,
+                'Regular Item'
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        $maxDays = 2;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        /** @var IItem $item */
+        $item = &$items[0];
+
+        $this->assertEquals($item->getQuality() == 4, "Expired conjured item quality update invalid logic, expected 2, but got: {$item->getQuality()}");
+    }
+
 }
