@@ -22,3 +22,8 @@ Use shell script, or manually walk through steps
 php composer.phar install
 php composer dump-autoload
 ```
+
+## Tests
+```sh
+php composer.phar tests
+```
