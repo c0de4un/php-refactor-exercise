@@ -163,7 +163,6 @@ final class GildedRoseTest extends TestCase
      */
     public function testSulfurasQualityUpdate(): void
     {
-
         /** @var IItem[] $items */
         $items = [
             ItemsFactory::Create(
@@ -188,6 +187,36 @@ final class GildedRoseTest extends TestCase
         }
 
         $this->assertEquals($item->getQuality() == Sulfuras::QUALITY, 'Sulfuras quality cannot be changed during update');
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testAgedBrieQualityUpdate(): void
+    {
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::AGED_BRIE,
+                1,
+                1,
+                true,
+                'Regular Item'
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        /** @var IItem $item */
+        $item = &$items[0];
+
+        $maxDays = 2;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        $this->assertEquals($item->getQuality() == 5, "Aged Brie invalid quality update logic, expected 5, but got: {$item->getQuality()}");
     }
 
 }
