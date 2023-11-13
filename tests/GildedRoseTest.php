@@ -124,7 +124,7 @@ final class GildedRoseTest extends TestCase
         /** @var IItem $item */
         $item = &$items[0];
 
-        $this->assertEquals($item->getQuality() == 4, 'Conjured item quality update invalid logic');
+        $this->assertEquals($item->getQuality() === 4, 'Conjured item quality update invalid logic');
     }
 
     /**
@@ -154,7 +154,7 @@ final class GildedRoseTest extends TestCase
         /** @var IItem $item */
         $item = &$items[0];
 
-        $this->assertEquals($item->getQuality() == 2, "Expired conjured item quality update invalid logic, expected 2, but got: {$item->getQuality()}");
+        $this->assertEquals($item->getQuality() === 2, "Expired conjured item quality update invalid logic, expected 2, but got: {$item->getQuality()}");
     }
 
     /**
@@ -179,14 +179,14 @@ final class GildedRoseTest extends TestCase
         /** @var IItem $item */
         $item = &$items[0];
 
-        $this->assertEquals($item->getQuality() == Sulfuras::QUALITY, 'Sulfuras must have constant quality value');
+        $this->assertEquals($item->getQuality() === Sulfuras::QUALITY, 'Sulfuras must have constant quality value');
 
         $maxDays = 2;
         for ($day = 0; $day < $maxDays; $day++) {
             $gildedRose->updateQuality();
         }
 
-        $this->assertEquals($item->getQuality() == Sulfuras::QUALITY, 'Sulfuras quality cannot be changed during update');
+        $this->assertEquals($item->getQuality() === Sulfuras::QUALITY, 'Sulfuras quality cannot be changed during update');
     }
 
     /**
@@ -216,7 +216,7 @@ final class GildedRoseTest extends TestCase
             $gildedRose->updateQuality();
         }
 
-        $this->assertEquals($item->getQuality() == 3, "Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
+        $this->assertEquals($item->getQuality() === 3, "Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
     }
 
     /**
@@ -246,7 +246,7 @@ final class GildedRoseTest extends TestCase
             $gildedRose->updateQuality();
         }
 
-        $this->assertEquals($item->getQuality() == 5, "Conjured Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
+        $this->assertEquals($item->getQuality() === 5, "Conjured Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
     }
 
     /**
@@ -289,9 +289,9 @@ final class GildedRoseTest extends TestCase
             $gildedRose->updateQuality();
         }
 
-        $this->assertEquals($item_10_sellIn->getQuality() == 3, "Backstage passes, with sellin <= 10, invalid quality update, expected 3, got: {$item_10_sellIn->getQuality()}");
-        $this->assertEquals($item_5_sellIn->getQuality() == 4, "Backstage passes, with sellin <= 5, invalid quality update, expected 4, got: {$item_5_sellIn->getQuality()}");
-        $this->assertEquals($item_expired->getQuality() == 0, "Expired Backstage passes expected to have 0 quality, but got: {$item_expired->getQuality()}");
+        $this->assertEquals($item_10_sellIn->getQuality() === 3, "Backstage passes, with sellin <= 10, invalid quality update, expected 3, got: {$item_10_sellIn->getQuality()}");
+        $this->assertEquals($item_5_sellIn->getQuality() === 4, "Backstage passes, with sellin <= 5, invalid quality update, expected 4, got: {$item_5_sellIn->getQuality()}");
+        $this->assertEquals($item_expired->getQuality() === 0, "Expired Backstage passes expected to have 0 quality, but got: {$item_expired->getQuality()}");
     }
 
 }
