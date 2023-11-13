@@ -55,6 +55,11 @@ class ItemModel implements IItem
         return $this->conjured;
     }
 
+    public final function __toString(): string
+    {
+        return $this->item->__toString();
+    }
+
     protected function updateSellIn(): void
     {
         $this->item->sellIn = max(0, $this->item->sellIn - 1);

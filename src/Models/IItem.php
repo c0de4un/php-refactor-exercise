@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace GildedRose\Models;
 
-interface IItem extends IQuality, ISellable
+use Stringable;
+
+interface IItem extends IQuality, ISellable, Stringable
 {
 
     public function getName(): string;
