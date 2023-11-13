@@ -6,7 +6,5 @@ namespace GildedRose\Models;
 
 interface IQuality
 {
-
     public function getQuality(): int;
-
 }

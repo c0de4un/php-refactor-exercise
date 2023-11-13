@@ -8,7 +8,6 @@ use GildedRose\Item;
 
 class ItemModel implements IItem
 {
-
     protected Item $item;
 
     public function __construct(
@@ -17,30 +16,35 @@ class ItemModel implements IItem
         int $quality,
         protected bool $conjured = false
     ) {
-        assert(!empty($name));
+        assert(! empty($name));
         assert($sellIn >= 0);
         assert($quality >= 0);
 
         $this->item = new Item($name, $sellIn, $quality);
     }
 
-    public final function getQuality(): int
+    final public function __toString(): string
+    {
+        return $this->item->__toString();
+    }
+
+    final public function getQuality(): int
     {
         return $this->item->quality;
     }
 
-    public final function getSellIn(): int
+    final public function getSellIn(): int
     {
         return $this->item->sellIn;
     }
 
-    public final function Update(): void
+    final public function Update(): void
     {
         $this->updateSellIn();
         $this->updateQuality();
     }
 
-    public final function getName(): string
+    final public function getName(): string
     {
         return $this->item->name;
     }
@@ -50,14 +54,9 @@ class ItemModel implements IItem
         return EItemTypes::REGULAR;
     }
 
-    public final function isConjured(): bool
+    final public function isConjured(): bool
     {
         return $this->conjured;
-    }
-
-    public final function __toString(): string
-    {
-        return $this->item->__toString();
     }
 
     protected function updateSellIn(): void
@@ -74,5 +73,4 @@ class ItemModel implements IItem
 
         $this->item->quality = max(0, $this->item->quality - $modifier);
     }
-
 }

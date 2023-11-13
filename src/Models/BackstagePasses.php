@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace GildedRose\Models;
 
-use GildedRose\Item;
-
 final class BackstagePasses extends ItemModel
 {
-
-    const NAME = 'Backstage passes to a TAFKAL80ETC concert';
+    public const NAME = 'Backstage passes to a TAFKAL80ETC concert';
 
     public function __construct(
         int $sellIn,
@@ -37,5 +34,4 @@ final class BackstagePasses extends ItemModel
 
         $this->item->quality = min(50, $this->item->quality + $modifier);
     }
-
 }

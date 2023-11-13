@@ -8,10 +8,11 @@ use GildedRose\Models\IItem;
 
 final class GildedRose
 {
-
     private static ?GildedRose $instance = null;
 
-    /** @var array IItem[] */
+    /**
+     * @var array IItem[]
+     */
     private array $items;
 
     /**
@@ -23,18 +24,17 @@ final class GildedRose
         $this->items = $items;
     }
 
-    public static function getInstance(): ?GildedRose
+    public static function getInstance(): ?self
     {
         return self::$instance;
     }
 
     /**
      * @param  IItem[] $items
-     * @return GildedRose
      */
-    public static function Build(array $items): GildedRose
+    public static function Build(array $items): self
     {
-        return self::$instance = new GildedRose($items);
+        return self::$instance = new self($items);
     }
 
     public function updateQuality(): void
@@ -43,5 +43,4 @@ final class GildedRose
             $item->Update();
         }
     }
-
 }

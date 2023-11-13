@@ -6,10 +6,11 @@ namespace GildedRose\Models;
 
 final class EItemTypes
 {
+    public const REGULAR = 0;
 
-    const REGULAR          = 0;
-    const AGED_BRIE        = 1;
-    const SULFURAS         = 2;
-    const BACKSTAGE_PASSES = 3;
+    public const AGED_BRIE = 1;
 
+    public const SULFURAS = 2;
+
+    public const BACKSTAGE_PASSES = 3;
 }

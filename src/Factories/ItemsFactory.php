@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace GildedRose\Factories;
 
+use GildedRose\Models\AgedBrie;
+use GildedRose\Models\BackstagePasses;
 use GildedRose\Models\EItemTypes;
 use GildedRose\Models\IItem;
 use GildedRose\Models\ItemModel;
-use GildedRose\Models\AgedBrie;
-use GildedRose\Models\BackstagePasses;
 use GildedRose\Models\Sulfuras;
 
 final class ItemsFactory
 {
-
     private static array $itemClassesByType = [
-        EItemTypes::AGED_BRIE        => AgedBrie::class,
-        EItemTypes::SULFURAS         => Sulfuras::class,
+        EItemTypes::AGED_BRIE => AgedBrie::class,
+        EItemTypes::SULFURAS => Sulfuras::class,
         EItemTypes::BACKSTAGE_PASSES => BackstagePasses::class,
     ];
 
@@ -40,5 +39,4 @@ final class ItemsFactory
 
         return new ItemModel($name, $sellIn, $quality, $isConjured);
     }
-
 }

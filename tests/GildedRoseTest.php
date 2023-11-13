@@ -4,20 +4,15 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use GildedRose\Factories\ItemsFactory;
 use GildedRose\GildedRose;
+use GildedRose\Models\EItemTypes;
 use GildedRose\Models\IItem;
 use GildedRose\Models\Sulfuras;
-use GildedRose\Factories\ItemsFactory;
-use GildedRose\Models\EItemTypes;
 use PHPUnit\Framework\TestCase;
 
 final class GildedRoseTest extends TestCase
 {
-
-    /**
-     * @test
-     * @return void
-     */
     public function testFoo(): void
     {
         /** @var IItem[] $items */
@@ -31,10 +26,7 @@ final class GildedRoseTest extends TestCase
         $this->assertSame('foo', $items[0]->getName());
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testRegularItemSellInMin(): void
     {
         $maxSellIn = 1;
@@ -63,10 +55,7 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getSellIn() >= 0, 'SellIn cannot be less then 0');
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testRegularItemQualityMin(): void
     {
         $maxSellIn = 1;
@@ -95,10 +84,7 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() >= 0, 'Quality cannot be less then 0');
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testConjuredRegularItemQualityUpdate(): void
     {
         $maxSellIn = 8;
@@ -127,10 +113,7 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() === 4, 'Conjured item quality update invalid logic');
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testExpiredConjuredRegularItemQualityUpdate(): void
     {
         /** @var IItem[] $items */
@@ -157,10 +140,7 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() === 2, "Expired conjured item quality update invalid logic, expected 2, but got: {$item->getQuality()}");
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testSulfurasQualityUpdate(): void
     {
         /** @var IItem[] $items */
@@ -189,10 +169,7 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() === Sulfuras::QUALITY, 'Sulfuras quality cannot be changed during update');
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testAgedBrieQualityUpdate(): void
     {
         /** @var IItem[] $items */
@@ -219,10 +196,7 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() === 3, "Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testConjuredAgedBrieQualityUpdate(): void
     {
         /** @var IItem[] $items */
@@ -249,10 +223,7 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() === 5, "Conjured Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
     }
 
-    /**
-     * @test
-     * @return void
-     */
+
     public function testBackstagePassesQualityUpdate(): void
     {
         /** @var IItem[] $items */
@@ -293,5 +264,4 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item_5_sellIn->getQuality() === 4, "Backstage passes, with sellin <= 5, invalid quality update, expected 4, got: {$item_5_sellIn->getQuality()}");
         $this->assertEquals($item_expired->getQuality() === 0, "Expired Backstage passes expected to have 0 quality, but got: {$item_expired->getQuality()}");
     }
-
 }

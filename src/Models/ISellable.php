@@ -6,7 +6,5 @@ namespace GildedRose\Models;
 
 interface ISellable
 {
-
     public function getSellIn(): int;
-
 }

@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace GildedRose\Models;
 
-use GildedRose\Item;
-
 final class AgedBrie extends ItemModel
 {
-
-    const NAME = 'Aged Brie';
+    public const NAME = 'Aged Brie';
 
     public function __construct(
         int $sellIn,
@@ -29,5 +26,4 @@ final class AgedBrie extends ItemModel
         $modifier = $this->isConjured() ? 2 : 1;
         $this->item->quality = min(50, $this->item->quality + $modifier);
     }
-
 }
