@@ -27,3 +27,10 @@ php composer dump-autoload
 ```sh
 php composer.phar tests
 ```
+
+## Contribute
+1. Add unit-tests for any model logic changes
+2. Before pushing changed, fix code-style with:
+```sh
+php composer.phar fix-cs
+```
