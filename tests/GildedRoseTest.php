@@ -201,6 +201,36 @@ final class GildedRoseTest extends TestCase
                 EItemTypes::AGED_BRIE,
                 1,
                 1,
+                false,
+                'Regular Item'
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        /** @var IItem $item */
+        $item = &$items[0];
+
+        $maxDays = 2;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        $this->assertEquals($item->getQuality() == 3, "Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
+    }
+
+    /**
+     * @test
+     * @return void
+     */
+    public function testConjuredAgedBrieQualityUpdate(): void
+    {
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::AGED_BRIE,
+                1,
+                1,
                 true,
                 'Regular Item'
             ),
@@ -216,7 +246,7 @@ final class GildedRoseTest extends TestCase
             $gildedRose->updateQuality();
         }
 
-        $this->assertEquals($item->getQuality() == 5, "Aged Brie invalid quality update logic, expected 5, but got: {$item->getQuality()}");
+        $this->assertEquals($item->getQuality() == 5, "Conjured Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
     }
 
 }
