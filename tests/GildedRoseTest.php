@@ -249,4 +249,49 @@ final class GildedRoseTest extends TestCase
         $this->assertEquals($item->getQuality() == 5, "Conjured Aged Brie invalid quality update logic, expected 3, but got: {$item->getQuality()}");
     }
 
+    /**
+     * @test
+     * @return void
+     */
+    public function testBackstagePassesQualityUpdate(): void
+    {
+        /** @var IItem[] $items */
+        $items = [
+            ItemsFactory::Create(
+                EItemTypes::BACKSTAGE_PASSES,
+                11,
+                1,
+                false
+            ),
+            ItemsFactory::Create(
+                EItemTypes::BACKSTAGE_PASSES,
+                6,
+                1,
+                false
+            ),
+            ItemsFactory::Create(
+                EItemTypes::BACKSTAGE_PASSES,
+                1,
+                1,
+                false
+            ),
+        ];
+
+        $gildedRose = GildedRose::Build($items);
+
+        /** @var IItem $item */
+        $item_10_sellIn = &$items[0];
+        $item_5_sellIn = &$items[1];
+        $item_expired = &$items[2];
+
+        $maxDays = 1;
+        for ($day = 0; $day < $maxDays; $day++) {
+            $gildedRose->updateQuality();
+        }
+
+        $this->assertEquals($item_10_sellIn->getQuality() == 3, "Backstage passes, with sellin <= 10, invalid quality update, expected 3, got: {$item_10_sellIn->getQuality()}");
+        $this->assertEquals($item_5_sellIn->getQuality() == 4, "Backstage passes, with sellin <= 5, invalid quality update, expected 4, got: {$item_5_sellIn->getQuality()}");
+        $this->assertEquals($item_expired->getQuality() == 0, "Expired Backstage passes expected to have 0 quality, but got: {$item_expired->getQuality()}");
+    }
+
 }
